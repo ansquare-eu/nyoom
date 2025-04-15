@@ -1,6 +1,6 @@
 use crate::NyoomError;
 
-pub fn split(bytes: Vec<u8>) -> Result<Vec<String>, NyoomError> {
+fn split(bytes: Vec<u8>) -> Result<Vec<String>, NyoomError> {
     let string = String::from_utf8(bytes).unwrap();
     Ok(string.lines().map(|x| {
         let mut vec = x.split_whitespace().collect::<Vec<&str>>();
@@ -31,7 +31,7 @@ pub fn scan(bytes: Vec<u8>) -> Result<Vec<Token>, NyoomError> {
     }
     Ok(vec)
 }
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub enum Token {
     Prim,
     Sec,

@@ -1,11 +1,18 @@
+nyoom nyoom nugget nyoom nyoom nyoom nyoom I //Imports file nyoom-nyoom-nyoom-nyoom.nyny
+nyoom nyoom nugget nugget nyoom nyoom nugget nyoom //Aliases the builting method "nyoom" to the local method "nyoom nyoom"
+
 nugget nyoom nugget nugget nyoom nyoom nyoom nyoom nyoom nyoom nyoom nyoom nyoom nyoom I //Sets the variable "nyoom" to 10 (Unary mathematics)
-nugget nyoom nyoom nugget nugget_I_nyoom nugget nyoom nyoom nyoom nyoom nugget nyoom I //Sets the variable "nyoom nyoom" to the result of the function nyoom nyoom nyoom nyoom from the namespace nugget (standard library)
-//called with the variable nyoom as argument
+nugget nyoom nyoom nugget nyoom I //Sets the variable "nyoom nyoom" to the variable "nyoom"
+nugget nyoom nyoom nyoom nugget nugget nugget nyoom nugget nyoom I //Sets the variable "nyoom nyoom nyoom" to the result of the local function "nyoom" called with variable "nyoom" as argument
+nugget nyoom nyoom nyoom nyoom nugget nugget nugget nugget nyoom nugget nyoom I //Sets the variable "nyoom nyoom nyoom" to the result of the builtin function "nyoom" called with variable "nyoom" as argument
+nugget nyoom nugget nugget nugget nugget nugget nyoom nyoom nugget nugget nyoom nugget nyoom nyoom nyoom I 
+//Sets the variable "nyoom" to the array of variable "nyoom nyoom", the number "1" and the variable "nyoom nyoom nyoom"
+
+nyoom nugget nugget nyoom nyoom nyoom nugget nyoom
 nyoom nugget nyoom nyoom nugget I //Defines the function "nyoom nyoom nyoom"
 	nugget nyoom nyoom nyoom nugget nugget nyoom I //Sets the variable nyoom nyoom nyoom to 1
 	nyoom nugget nyoom nyoom nyoom I //Returns variable "nyoom nyoom nyoom"
 I //Ends block
-nugget nyoom nyoom nyoom nugget nugget nugget nyoom nugget nyoom nyoom I //Creates a tuple from variables "nyoom" and "nyoom nyoom" and sets it as the variable "nyoom nyoom nyoom"
 nyoom nugget nyoom nyoom nyoom nyoom nugget I
 	nugget nyoom nyoom nyoom nyoom nugget nugget nugget nugget nyoom I //Sets variable "nyoom nyoom nyoom nyoom" to the first element of the tuple provided as the argument
 	nugget nyoom nyoom nyoom nyoom nyoom nugget nugget nugget nugget nyoom nyoom I //Sets variable "nyoom nyoom nyoom nyoom nyoom" to the second element of the tuple provided as the argument
