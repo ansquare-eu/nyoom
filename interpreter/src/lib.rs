@@ -1,3 +1,5 @@
+use std::iter::Peekable;
+
 use scan::{scan, Token};
 
 
@@ -21,11 +23,14 @@ mod tests {
 }
 
 pub struct TokenIter<U : Iterator<Item = Token>> {
-    inner : U
+    inner : Peekable<U>
 }
 impl<U : Iterator<Item = Token>> TokenIter <U> {
     fn next_err(&mut self) -> Result<Token, NyoomError>{
         self.next().ok_or(NyoomError::CompileError("Iterator did not find token", 0))
+    }
+    pub fn peek(&mut self) -> Option<&Token> {
+        self.inner.peek()
     }
 }
 impl<U: Iterator<Item = Token>> Iterator for TokenIter <U>{
@@ -38,6 +43,6 @@ impl<U: Iterator<Item = Token>> Iterator for TokenIter <U>{
 
 impl<U: Iterator<Item = Token>> From<U> for TokenIter <U> {
     fn from(value: U) -> Self {
-        TokenIter { inner: value }
+        TokenIter { inner: value.peekable() }
     }
 }

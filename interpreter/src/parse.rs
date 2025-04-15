@@ -1,7 +1,7 @@
 use crate::{scan::Token, NyoomError, TokenIter};
 
 pub fn parse(tokens: Vec<Token>) -> Result<Vec<Inst>, NyoomError> {
-    let mut iter = TokenIter::from(tokens.iter().peekable().copied());
+    let mut iter = TokenIter::from(tokens.iter().copied());
     let mut vec : Vec<Inst> = Vec::new();
     while let Some(_) = iter.peek() {
         let inst = read_inst(&mut iter, 0);
