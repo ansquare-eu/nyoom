@@ -1,4 +1,6 @@
-use crate::{scan::Token, NyoomError, TokenIter, AST};
+use std::rc::Rc;
+
+use crate::{ast, scan::Token, NyoomError, TokenIter, AST};
 
 pub fn parse(tokens: Vec<Token>) -> Result<AST, NyoomError> {
     let mut iter = TokenIter::from(tokens.iter().copied());
@@ -13,40 +15,11 @@ pub fn parse(tokens: Vec<Token>) -> Result<AST, NyoomError> {
     }
     Ok(vec)
 }
-#[derive(Debug)]
-pub enum Id {
-    NyNy(u16),
-    NyNu(u16),
-}
-#[derive(Debug)]
-pub enum Expr {
-    Var(Id),
-    Int(u32),
-    CallLoc(FnCall),
-    CallBuiltin(FnCall),
-    Concat(Vec<Expr>),
-    Arg,
-}
-#[derive(Debug)]
-pub struct FnCall(Id, Box<Expr>);
-#[derive(Debug)]
-pub struct Block(Vec<Inst>);
-#[derive(Debug)]
-pub enum Inst {
-    Import(String),
-    Alias(Id, Id),
-    SetVar(Id, Expr),
-    Eval(Expr),
-    FnDef(Id, Block),
-    If(Expr, Block, Option<Block>),
-    While(Expr, Block),
-    Return(Expr),
-}
 
 fn parse_inst<U: Iterator<Item = Token>>(
     iter: &mut TokenIter<U>,
     is_fn: bool,
-) -> Result<Inst, NyoomError> {
+) -> Result<ast::Inst, NyoomError> {
     match iter.next_err()? {
         Token::Prim => match iter.next_err()? {
             Token::Prim => match iter.next_err()? {
@@ -55,7 +28,7 @@ fn parse_inst<U: Iterator<Item = Token>>(
                     Token::Prim => {
                         let import = count_prims_and_advance(iter)?;
                         return if check_if_split_and_advance(iter)? {
-                            Ok(Inst::Import(concat_file_name(import)))
+                            Ok(ast::Inst::Import(concat_file_name(import)))
                         } else {
                             Err(NyoomError::CompileError("Unexpected end of import statement", 0))
                         };
@@ -68,7 +41,7 @@ fn parse_inst<U: Iterator<Item = Token>>(
                                 Token::Sec => {
                                     let source = count_prims_and_advance(iter)?;
                                     return if check_if_split_and_advance(iter)? {
-                                        Ok(Inst::Alias(Id::NyNy(alias), Id::NyNy(source)))
+                                        Ok(ast::Inst::Alias(ast::Id::NyNy(alias), ast::Id::NyNy(source)))
                                     } else {
                                         Err(NyoomError::CompileError(
                                             "Unexpected end of alias statement",
@@ -92,8 +65,8 @@ fn parse_inst<U: Iterator<Item = Token>>(
                             let block = parse_opened_block(iter)?;
                             //TODO Also add else block if i find it important enough
                             return match count {
-                                1 => Ok(Inst::If(expr, block, None)),
-                                2 => Ok(Inst::While(expr, block)),
+                                1 => Ok(ast::Inst::If(expr, block, None)),
+                                2 => Ok(ast::Inst::While(expr, block)),
                                 _ => Err(NyoomError::CompileError("Unexpected strucure following a control flow declaration", 0))
                             }
                         },
@@ -107,20 +80,20 @@ fn parse_inst<U: Iterator<Item = Token>>(
                 if *iter.peek_err()? == Token::Sec {
                     iter.next();
                     let expr = parse_expression_until_split(iter)?;
-                    return Ok(Inst::Eval(expr));
+                    return Ok(ast::Inst::Eval(expr));
                 }
                 //As Nyoom does not support nested functions, returns and evals can have the same beginning syntax
                 //Returs
                 return if is_fn {
                     let expr = parse_expression_until_split(iter)?;
-                    Ok(Inst::Return(expr))
+                    Ok(ast::Inst::Return(expr))
                 } // Function defs
                  else {
                     if iter.next_err()? == Token::Prim {
                         let count = count_prims_and_advance(iter)?;
                         if iter.next_err()? == Token::Split {
                             let block = parse_opened_block(iter)?;
-                            Ok(Inst::FnDef(Id::NyNy(count), block))
+                            Ok(ast::Inst::FnDef(ast::Id::NyNy(count), block))
                         } else {
                             Err(NyoomError::CompileError("Expected split to start fn block", 0))
                         }
@@ -138,7 +111,7 @@ fn parse_inst<U: Iterator<Item = Token>>(
                     let count = count_prims_and_advance(iter)?;
                     if iter.next_err()? == Token::Sec {
                         let expr = parse_expression_until_split(iter)?;
-                        return Ok(Inst::SetVar(Id::NyNy(count), expr));
+                        return Ok(ast::Inst::SetVar(ast::Id::NyNy(count), expr));
                     } else {
                         return Err(NyoomError::CompileError("Variable declared without value! This is not java you dont do this ever", 0));
                     }
@@ -152,8 +125,8 @@ fn parse_inst<U: Iterator<Item = Token>>(
 //Parses a block until it finds a block ending split, assumes block starting split already found
 fn parse_opened_block<U: Iterator<Item = Token>>(
     iter: &mut TokenIter<U>,
-) -> Result<Block, NyoomError> {
-    let mut vec: Vec<Inst> = Vec::new();
+) -> Result<ast::Block, NyoomError> {
+    let mut vec: Vec<ast::Inst> = Vec::new();
     loop {
         if *iter.peek_err()? == Token::Split {
             iter.next();
@@ -163,20 +136,20 @@ fn parse_opened_block<U: Iterator<Item = Token>>(
         vec.push(inst);
         
     }
-    Ok(Block(vec))
+    Ok(ast::Block(vec))
 }
 //Parses an expression, assuming it ends with a split
 //Assumes the first sec was already found
 fn parse_expression_until<U: Iterator<Item = Token>>(
     iter: &mut TokenIter<U>,
-) -> Result<(Expr, Token), NyoomError> {
-    let count = count_secs_and_advance(iter)?;
+) -> Result<(ast::Expr, Token), NyoomError> {
+    let count = count_secs_and_advance(iter, Some(6))?;
     match count {
         //Vars
         1 => {
             if iter.next_err()? == Token::Prim {
                 let name = count_prims_and_advance(iter)?;
-                Ok((Expr::Var(Id::NyNy(name)), iter.next_err()?))
+                Ok((ast::Expr::Var(ast::Id::NyNy(name)), iter.next_err()?))
             } else {
                 Err(NyoomError::CompileError("Unexpected token instead of var name", 0))
             }
@@ -185,7 +158,7 @@ fn parse_expression_until<U: Iterator<Item = Token>>(
         2 => {
             if iter.next_err()? == Token::Prim {
                 let literal = count_prims_and_advance_for_literal(iter)?;
-                Ok((Expr::Int(literal), iter.next_err()?))
+                Ok((ast::Expr::Int(literal), iter.next_err()?))
             } else {
                 Err(NyoomError::CompileError("Unexpected token instead of literal", 0))
             }
@@ -196,7 +169,7 @@ fn parse_expression_until<U: Iterator<Item = Token>>(
                 let name = count_prims_and_advance(iter)?;
                 if iter.next_err()? == Token::Sec {
                     let expr = parse_expression_until(iter)?;
-                    Ok((Expr::CallLoc(FnCall(Id::NyNy(name), Box::new(expr.0))), expr.1))
+                    Ok((ast::Expr::CallLoc(ast::FnCall(ast::Id::NyNy(name), Rc::new(expr.0))), expr.1))
                 } else {
                     Err(NyoomError::CompileError("Unexpected token following local fn name, what are you splitting?", 0))
                 }
@@ -210,7 +183,7 @@ fn parse_expression_until<U: Iterator<Item = Token>>(
                 let name = count_prims_and_advance(iter)?;
                 if iter.next_err()? == Token::Sec {
                     let expr = parse_expression_until(iter)?;
-                    Ok((Expr::CallBuiltin(FnCall(Id::NyNy(name), Box::new(expr.0))), expr.1))
+                    Ok((ast::Expr::CallBuiltin(ast::FnCall(ast::Id::NyNy(name), Rc::new(expr.0))), expr.1))
                 } else {
                     Err(NyoomError::CompileError("Unexpected token following global fn name, what are you splitting?", 0))
                 }
@@ -219,8 +192,8 @@ fn parse_expression_until<U: Iterator<Item = Token>>(
             }
         },
         //Concatenation
-        5 => {
-            let mut vec : Vec<Expr> = Vec::new();
+        6 => {
+            let mut vec : Vec<ast::Expr> = Vec::new();
             loop {
                 let expr = parse_expression_until(iter)?;
                 vec.push(expr.0);
@@ -228,19 +201,19 @@ fn parse_expression_until<U: Iterator<Item = Token>>(
                     break;
                 }
             };
-            Ok((Expr::Concat(vec), Token::Split))
+            Ok((ast::Expr::Concat(vec), Token::Split))
         },
         //Arg reference
-        6 => {
+        5 => {
             if iter.next_err()? == Token::Prim {
                 let next = iter.next_err()?;
                 if next != Token::Prim {
-                    Ok((Expr::Arg, next))
+                    Ok((ast::Expr::Arg, next))
                 } else {
                     Err(NyoomError::CompileError("A Prim token found in arg reference, this means it is misconstructed", 0))
                 }
             } else {
-                Ok((Expr::Arg, Token::Split))
+                Ok((ast::Expr::Arg, Token::Split))
             }
         },
         _ => Err(NyoomError::CompileError("Invalid expression type", 0))
@@ -248,7 +221,7 @@ fn parse_expression_until<U: Iterator<Item = Token>>(
 }
 fn parse_expression_until_split<U: Iterator<Item = Token>>(
     iter: &mut TokenIter<U>,
-) -> Result<Expr, NyoomError> {
+) -> Result<ast::Expr, NyoomError> {
     parse_expression_until(iter).map(|x|x.0)
 }
 fn concat_file_name(import: u16) -> String {
@@ -288,13 +261,16 @@ fn count_prims_and_advance<U: Iterator<Item = Token>>(
     Ok(count)
 }
 fn count_secs_and_advance<U: Iterator<Item = Token>>(
-    iter: &mut TokenIter<U>,
+    iter: &mut TokenIter<U>, max: Option<u16>
 ) -> Result<u16, NyoomError> {
     let mut count = 1_u16;
     while let Some(Token::Sec) = iter.peek() {
         iter.next();
         if let Some(i) = count.checked_add(1) {
             count = i;
+            if let Some(max) = max {
+                if i == max {return Ok(count);}
+            }
         } else {
             return Err(NyoomError::CompileError("Identifier too long", 0));
         }

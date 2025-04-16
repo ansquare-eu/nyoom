@@ -15,6 +15,10 @@ fn main() {
             println!("Linker error: {str} while linking file {path:?}")
         },
         Err(nyoom::NyoomError::RuntimeError(str)) => println!("Runtime error: {str}"),
+        Err(nyoom::NyoomError::NoSuchElementError(str, i, u)) => println!("No such element {i}: {str}, array only has {u} elements"),
+        Err(nyoom::NyoomError::NoSuchDefinitionError(str, i)) => println!("No definition found for id {i:?}: {str}"),
+        Err(nyoom::NyoomError::InvalidArgumentError(str, i)) => println!("Invalid argument {i:?}: {str}"),
+        Err(nyoom::NyoomError::BuiltinFnTypeError(str)) => println!("Invalid builtin function type: {str}"),
         Ok(_) => println!("Success!"),
     };
 }

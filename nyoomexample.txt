@@ -1,14 +1,17 @@
-nyoom nyoom nugget nyoom nyoom nyoom nyoom I
-nyoom nyoom nugget nugget nyoom nyoom nugget nyoom I
+nugget nyoom nugget nugget nugget nugget nyoom nyoom nyoom nugget nugget nugget nugget nugget nugget nugget nyoom nyoom nyoom nyoom nyoom nyoom nyoom nyoom nugget nugget nyoom nyoom nyoom nyoom nyoom nyoom nyoom nyoom nyoom I //The letter H
+nugget nyoom nyoom nugget nugget nugget nugget nyoom nugget nugget nugget nugget nugget nugget nugget nyoom nugget nugget nugget nugget nyoom nyoom nyoom nugget nugget nugget nugget nugget nugget nugget nyoom nyoom nyoom nyoom nyoom nyoom nyoom nyoom nyoom nyoom nugget nugget nyoom nyoom nyoom nyoom nyoom nyoom nyoom nyoom nyoom nyoom I //The letter e
+nugget nyoom nyoom nyoom nugget nugget nugget nugget nyoom nugget nugget nugget nugget nugget nugget nyoom nyoom nugget nugget nyoom nyoom nyoom nyoom nyoom nyoom nyoom I
+nugget nyoom nyoom nyoom nyoom nugget nugget nugget nugget nyoom nugget nugget nugget nugget nugget nugget nyoom nyoom nyoom nugget nugget nyoom nyoom nyoom I
 
-nugget nyoom nugget nugget nyoom nyoom nyoom nyoom nyoom nyoom nyoom nyoom nyoom nyoom I
-nugget nyoom nyoom nugget nyoom I
-nugget nyoom nyoom nyoom nugget nugget nugget nyoom nugget nyoom I
-nugget nyoom nyoom nyoom nyoom nugget nugget nugget nugget nyoom nugget nyoom I
-nugget nyoom nugget nugget nugget nugget nugget nyoom nyoom nugget nugget nyoom nugget nyoom nyoom nyoom I
-
-nyoom nugget nugget nugget nugget nyoom nyoom nyoom nugget nyoom I // Calls the local function "nyoom nyoom nyoom" with the variable "nyoom" as argument and discards the result
-nyoom nugget nyoom nyoom I //Defines the function "nyoom nyoom nyoom"
-	nugget nyoom nyoom nyoom nugget nugget nyoom I //Sets the variable nyoom nyoom nyoom to 1
-	nyoom nugget nyoom nyoom nyoom I //Returns variable "nyoom nyoom nyoom"
-I //Ends block
+nugget nyoom nyoom nyoom nyoom nyoom nyoom nyoom nyoom nugget nugget nugget nugget nugget nugget nyoom nugget nyoom nyoom nugget nyoom nyoom nyoom nugget nyoom nyoom nyoom nugget nyoom nyoom nyoom nyoom I
+nyoom nugget nugget nugget nugget nyoom nyoom nugget nyoom nyoom nyoom nyoom nyoom nyoom nyoom nyoom I
+nyoom nugget nyoom nyoom I
+    nugget nyoom nyoom nyoom nugget nugget nugget nugget nyoom nyoom nyoom nyoom nyoom nugget nugget nugget nugget nugget I
+    nugget nyoom nugget nugget nugget nugget nyoom nyoom nugget nugget nugget nugget nugget nugget nugget nyoom nugget nugget nyoom I
+    nyoom nyoom nyoom nyoom nugget nugget nugget nugget nyoom nyoom nugget nugget nugget nugget nugget nugget nyoom nyoom nyoom nugget nyoom I
+        nugget nyoom nyoom nugget nugget nugget nugget nyoom nyoom nyoom nyoom nyoom nyoom nugget nugget nugget nugget nugget nugget nyoom nugget nugget nugget nugget nugget I
+        nyoom nugget nugget nugget nugget nugget nyoom nyoom nyoom nyoom nyoom nyoom nyoom nugget nyoom nyoom I
+        nugget nyoom nugget nugget nugget nugget nyoom nugget nugget nugget nugget nugget nugget nyoom nugget nugget nyoom I
+    I
+    nyoom nugget nyoom I
+I

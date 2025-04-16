@@ -1,20 +1,26 @@
 use std::{collections::HashSet, iter::Peekable, path::PathBuf};
 
+use ast::{Id, Inst};
 use link::link;
 use parse::parse;
 use scan::{scan, Token};
+use vm::{run_tree_walk, VarContent};
 
 mod parse;
 mod scan;
 mod link;
 mod vm;
+mod ast;
 
-pub type AST = Vec<parse::Inst>;
+pub type AST = Vec<Inst>;
 pub fn run(bytes: Vec<u8>, loader_file_path: PathBuf) -> Result<(), NyoomError> {
     let tokens = scan(bytes)?;
     let ast = parse(tokens)?;
     let linked = link(ast, &loader_file_path, &mut HashSet::new())?;
     println!("{:#?}", linked);
+    println!("Started runner");
+    run_tree_walk(linked)?;
+    println!("Ended runner");
     Ok(())
 }
 #[derive(Debug)]
@@ -22,7 +28,11 @@ pub enum NyoomError {
     ScannerError(&'static str, usize,  String),
     CompileError(&'static str, usize),
     LinkerError(&'static str, PathBuf),
+    BuiltinFnTypeError(&'static str),
+    NoSuchElementError(&'static str, i32, usize),
+    InvalidArgumentError(&'static str, VarContent),
     RuntimeError(&'static str),
+    NoSuchDefinitionError(&'static str, Id)
 }
 
 #[cfg(test)]

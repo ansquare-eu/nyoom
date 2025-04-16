@@ -1,6 +1,6 @@
 use std::{collections::HashSet, path::{Path, PathBuf}};
 
-use crate::{parse::{self, Inst}, scan::scan, NyoomError, AST};
+use crate::{ast::Inst, parse, scan::scan, NyoomError, AST};
 
 pub fn link(unlinked: AST, source_path: &PathBuf, linked: &mut HashSet<PathBuf>) -> Result<AST, NyoomError> {
     let mut linked_ast : AST = Vec::new();
