@@ -1,29 +1,14 @@
-nyoom nyoom nugget nyoom nyoom nyoom nyoom I //Imports file nyoom-nyoom-nyoom-nyoom.nyny
-nyoom nyoom nugget nugget nyoom nyoom nugget nyoom //Aliases the builting method "nyoom" to the local method "nyoom nyoom"
+nyoom nyoom nugget nyoom nyoom nyoom nyoom I
+nyoom nyoom nugget nugget nyoom nyoom nugget nyoom I
 
-nugget nyoom nugget nugget nyoom nyoom nyoom nyoom nyoom nyoom nyoom nyoom nyoom nyoom I //Sets the variable "nyoom" to 10 (Unary mathematics)
-nugget nyoom nyoom nugget nyoom I //Sets the variable "nyoom nyoom" to the variable "nyoom"
-nugget nyoom nyoom nyoom nugget nugget nugget nyoom nugget nyoom I //Sets the variable "nyoom nyoom nyoom" to the result of the local function "nyoom" called with variable "nyoom" as argument
-nugget nyoom nyoom nyoom nyoom nugget nugget nugget nugget nyoom nugget nyoom I //Sets the variable "nyoom nyoom nyoom" to the result of the builtin function "nyoom" called with variable "nyoom" as argument
-nugget nyoom nugget nugget nugget nugget nugget nyoom nyoom nugget nugget nyoom nugget nyoom nyoom nyoom I 
-//Sets the variable "nyoom" to the array of variable "nyoom nyoom", the number "1" and the variable "nyoom nyoom nyoom"
+nugget nyoom nugget nugget nyoom nyoom nyoom nyoom nyoom nyoom nyoom nyoom nyoom nyoom I
+nugget nyoom nyoom nugget nyoom I
+nugget nyoom nyoom nyoom nugget nugget nugget nyoom nugget nyoom I
+nugget nyoom nyoom nyoom nyoom nugget nugget nugget nugget nyoom nugget nyoom I
+nugget nyoom nugget nugget nugget nugget nugget nyoom nyoom nugget nugget nyoom nugget nyoom nyoom nyoom I
 
-nyoom nugget nugget nyoom nyoom nyoom nugget nyoom
-nyoom nugget nyoom nyoom nugget I //Defines the function "nyoom nyoom nyoom"
+nyoom nugget nugget nugget nugget nyoom nyoom nyoom nugget nyoom I // Calls the local function "nyoom nyoom nyoom" with the variable "nyoom" as argument and discards the result
+nyoom nugget nyoom nyoom I //Defines the function "nyoom nyoom nyoom"
 	nugget nyoom nyoom nyoom nugget nugget nyoom I //Sets the variable nyoom nyoom nyoom to 1
 	nyoom nugget nyoom nyoom nyoom I //Returns variable "nyoom nyoom nyoom"
 I //Ends block
-nyoom nugget nyoom nyoom nyoom nyoom nugget I
-	nugget nyoom nyoom nyoom nyoom nugget nugget nugget nugget nyoom I //Sets variable "nyoom nyoom nyoom nyoom" to the first element of the tuple provided as the argument
-	nugget nyoom nyoom nyoom nyoom nyoom nugget nugget nugget nugget nyoom nyoom I //Sets variable "nyoom nyoom nyoom nyoom nyoom" to the second element of the tuple provided as the argument
-	nyoom nyoom nugget nyoom nyoom nyoom nyoom I //If block, executes if variable "nyoom nyoom nyoom nyoom" is nonzero
-		
-	I nyoom nyoom nyoom I //Else block
-		
-	I
-	nyoom nyoom nyoom nugget nyoom nyoom nyoom nyoom nyoom I //While block, executes as long as variable "nyoom nyoom nyoom nyoom nyoom" is nonzero
-		
-	I
-	nyoom nugget nyoom nyoom nyoom nyoom I //Returns variable "nyoom nyoom nyoom nyoom"
-I
-	
