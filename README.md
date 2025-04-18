@@ -19,3 +19,4 @@ Nyoom contains two basic control flow operators, if and while.
 Both take an expression as an argument, and check if it is zero.
 If it is not, then the block is executed. The while loop is executed until the expression evaluates to zero.
 ### Functions
+Custom functions can also be defined. They are invoked differently from builtin functions. Like builtin functions, only one argument is allowed, but an array can be used to pass multiple values.
