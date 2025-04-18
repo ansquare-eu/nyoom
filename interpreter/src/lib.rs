@@ -6,11 +6,11 @@ use parse::parse;
 use scan::{scan, Token};
 use vm::{run_tree_walk, VarContent};
 
+mod ast;
+mod link;
 mod parse;
 mod scan;
-mod link;
 mod vm;
-mod ast;
 
 pub type AST = Vec<Inst>;
 pub fn run(bytes: Vec<u8>, loader_file_path: PathBuf) -> Result<(), NyoomError> {
@@ -25,14 +25,14 @@ pub fn run(bytes: Vec<u8>, loader_file_path: PathBuf) -> Result<(), NyoomError> 
 }
 #[derive(Debug)]
 pub enum NyoomError {
-    ScannerError(&'static str, usize,  String),
+    ScannerError(&'static str, usize, String),
     CompileError(&'static str, usize),
     LinkerError(&'static str, PathBuf),
     BuiltinFnTypeError(&'static str),
     NoSuchElementError(&'static str, i32, usize),
     InvalidArgumentError(&'static str, VarContent),
     RuntimeError(&'static str),
-    NoSuchDefinitionError(&'static str, Id)
+    NoSuchDefinitionError(&'static str, Id),
 }
 
 #[cfg(test)]
@@ -50,7 +50,9 @@ impl<U: Iterator<Item = Token>> TokenIter<U> {
         self.inner.peek()
     }
     pub fn peek_err(&mut self) -> Result<&Token, NyoomError> {
-        self.inner.peek().ok_or(NyoomError::CompileError("Iterator did not find token", 0))
+        self.inner
+            .peek()
+            .ok_or(NyoomError::CompileError("Iterator did not find token", 0))
     }
 }
 impl<U: Iterator<Item = Token>> Iterator for TokenIter<U> {

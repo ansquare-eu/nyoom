@@ -4,13 +4,12 @@ fn split(bytes: Vec<u8>) -> Result<Vec<String>, NyoomError> {
     let string = String::from_utf8(bytes).unwrap();
     Ok(string
         .lines()
-        .map(|x| {
+        .flat_map(|x| {
             let mut vec = x.split_whitespace().collect::<Vec<&str>>();
             vec.push("\n");
             vec
         })
-        .flatten()
-        .map(|x| String::from(x))
+        .map(String::from)
         .collect())
 }
 pub fn scan(bytes: Vec<u8>) -> Result<Vec<Token>, NyoomError> {
